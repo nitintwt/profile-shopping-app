@@ -1,20 +1,36 @@
-import React from 'react'
-import { Link, NavLink } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { Link, NavLink, useFetcher } from 'react-router-dom';
 import {Input} from "@nextui-org/react";
 import { FaShoppingCart } from "react-icons/fa";
+import { useCookies } from 'react-cookie';
+import UserAvatar from './UserAvatar';
 
 function Navbar() {
+  const [cookies]= useCookies()
+  const [isAuth , setIsAuth]= useState(false)
+
+  useEffect(()=>{
+    if (cookies.userData){
+      setIsAuth(true)
+    }
+  },[cookies])
+
   return (
   <header className="flex items-center justify-between h-16 px-4 md:px-6  bg-gray-950 dark:bg-gray-950 shadow font-roboto">
     <Link className="text-lg font-bold text-white" to="/">
-      Product
+      Shipper
     </Link>
     {/*<Input className='m-10 max-w-xl' size='sm' />*/}
     <div className='flex '>
-    <Link to='/cart' className='mr-10'>
-    <FaShoppingCart size={21} color='white' />
+    <Link to='/cart' className='m-5'>
+    <FaShoppingCart size={23} color='white' />
     </Link>
-    <button color="primary" variant="ghost" size="lg">
+    {isAuth ? (
+      <div>
+        <UserAvatar/>
+      </div>
+    ) :(
+      <button color="primary" variant="ghost" size="lg">
       <NavLink
         to="/signup"
         style={({ isActive }) => {return isActive ? { color: 'black' } : {};}}
@@ -23,6 +39,7 @@ function Navbar() {
         Login
       </NavLink>
     </button>
+    )}
     </div>
   </header>
   )

@@ -1,12 +1,32 @@
 import { useState } from 'react';
-import { Link} from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import { Toaster, toast } from 'sonner';
 import { Button } from '@nextui-org/button';
+import axios from 'axios';
 
 export default function SignupBox() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate= useNavigate()
+
+  const handleSubmit = async ()=>{
+    try {
+      const register = await axios.post("/api/v1/users/register" , {
+        name:name,
+        email:email,
+        password:password
+      })
+      console.log(register)
+      toast.success("User registered successfully")
+      setTimeout(()=>{
+        navigate("/login")
+      }, 1000)
+    } catch (error) {
+      console.log("Something went wrong while registering user" , error)
+      toast.error("Something went wrong while registering user. Try again")
+    }
+  }
 
   return (
     <div className="flex min-h-[100dvh] justify-center bg-gray-950 px-4 py-12  font-roboto ">
@@ -92,6 +112,7 @@ export default function SignupBox() {
             size="lg"
             variant="shadow"
             className="font-bold"
+            onClick={handleSubmit}
           >
             Sign up
           </Button>

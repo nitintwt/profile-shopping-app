@@ -1,10 +1,30 @@
 import { useState, useEffect, useContext } from 'react';
 import { Toaster, toast } from 'sonner';
 import { Button, ButtonGroup } from '@nextui-org/button';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginBox() {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(''); 
   const [password, setPassword] = useState('');
+  const navigate = useNavigate()
+
+  const handleSubmit = async ()=>{
+    try {
+      const login = await axios.post("/api/v1/users/login" , {
+        email:email,
+        password:password
+      })
+      console.log(login)
+      toast.success("User registered successfully")
+      setTimeout(()=>{
+        navigate("/")
+      }, 1000)
+    } catch (error) {
+      console.log("Something went wrong while login" , error)
+      toast.error("Something went wrong while login. Try again")
+    }
+  }
 
   return (
     <div className="flex min-h-[100dvh]  justify-center bg-gray-950 px-4 py-12 ">
@@ -62,6 +82,7 @@ export default function LoginBox() {
           size="lg"
           variant="shadow"
           className=" w-full"
+          onClick={handleSubmit}
         >
           Login
         </Button>
