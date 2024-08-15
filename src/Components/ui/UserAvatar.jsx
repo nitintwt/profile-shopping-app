@@ -4,7 +4,6 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Link,
   DropdownItem,
   DropdownTrigger,
   Dropdown,
@@ -13,8 +12,8 @@ import {
 } from '@nextui-org/react';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
-import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function UserAvatar() {
   const [cookies , removeCookie] = useCookies();
@@ -28,8 +27,6 @@ export default function UserAvatar() {
       console.log("Something went wrong while logging out" , error)
     }
   }
-
-
 
   return (
     <Navbar className="dark:bg-gray-950">
@@ -49,7 +46,9 @@ export default function UserAvatar() {
               <p className="font-semibold">{cookies?.userData?.email}</p>
             </DropdownItem>
             <DropdownItem key="settings" className="text-white">
-              Your orders
+              <Link to='/orders'>
+               Your orders
+              </Link>
             </DropdownItem>
             <DropdownItem key="help_and_feedback" className="text-white">
               Help & Feedback
