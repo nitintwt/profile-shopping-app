@@ -13,7 +13,7 @@ function Navbar() {
     if (cookies.userData){
       setIsAuth(true)
     }
-  },[cookies])
+  },[cookies?.userData , isAuth])
 
   return (
   <header className="flex items-center justify-between h-16 px-4 md:px-6  bg-gray-950 dark:bg-gray-950 shadow font-roboto">

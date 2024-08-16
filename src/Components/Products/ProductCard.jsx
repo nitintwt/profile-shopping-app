@@ -1,19 +1,19 @@
 import {Button} from "@nextui-org/button";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useCookies } from 'react-cookie';
 import { Image } from "@nextui-org/react";
 
 export default function ProductCard({productId , imageLink , name , price , handleAddToCart}) {
   const [isAdded , setIsAdded]= useState(false)
+  const [cookies] = useCookies();
+
   
   useEffect(()=>{
     const checkProductInCart = async ()=>{
       try {
-        const check = await axios.get("/api/v1/users/cart", {
-          userId:cookies?.userData?._id,
-          productId:productId
-        })
-        console.log("checking cart" , check)
+        const check = await axios.get(`/api/v1/users/checkProductInCart?userId=${cookies?.userData?._id}&productId=${productId}`)
+        setIsAdded(check?.data?.data)
       } catch (error) {
         console.log("Something went wrong while checking cart data" , error)
       }
@@ -38,9 +38,9 @@ export default function ProductCard({productId , imageLink , name , price , hand
         <div className="flex items-center justify-between">
           <span className="text-2xl font-bold">₹{price}</span>
           { isAdded ? (
-            <Button color="default">Add to Cart</Button>
+            <Button color="primary" variant="faded">Added</Button>
           ) : (
-            <Button color="primary" variant="ghost" onClick={handleAddToCart}>Add to Cart</Button>
+            <Button color="primary" variant="ghost" onClick={async () => await handleAddToCart(productId)}>Add to Cart</Button>
           )}
         </div>
       </div>

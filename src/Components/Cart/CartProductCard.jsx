@@ -1,52 +1,99 @@
 import {Button} from "@nextui-org/button";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Image } from "@nextui-org/react";
+import { useCookies } from "react-cookie";
+import { useDispatch , useSelector} from 'react-redux';
+import { addPrice } from "../../Store/productSlice";
 
-function CartProductCard(productId) {
+function CartProductCard({ productId , handleDelete }) {
   const [product , setProduct]= useState()
+  const [cookies] = useCookies();
+  const [productCount , setProductCount]= useState()
+  const dispatch = useDispatch()
 
   useEffect(()=>{
     const fetchProductData = async ()=>{
       try {
-        const productData = await axios.get(`/api/v1/users/product?productId=${productId}`)
-        console.log(productData)
+        const productData = await axios.get(`/api/v1/users/productData?productId=${productId}`)
+        setProduct(productData?.data?.data)
+
+
       } catch (error) {
         console.log("Something went wrong while fetching product data" , error)
       }
     }
     fetchProductData()
+    
   },[productId])
 
+
+
+  const handleIncreaseQuantity = async ()=>{
+    try {
+      const add = await axios.post("/api/v1/users/addToCart", {
+        productId:productId,
+        userId:cookies.userData._id
+      })
+      setProductCount(prevCount => prevCount + 1);
+    } catch (error) {
+      console.log("Something went wrong while adding product in cart" , error)
+    }
+  }
+
+  const handleDecreaseQuantity  = async ()=>{
+    try {
+      const decrease = await axios.delete(`api/v1/users/decreaseProductQuantity?userId=${cookies?.userData._id}&productId=${productId}`)
+      setProductCount(prevCount => Math.max(prevCount - 1, 0));
+      dispatch(removePrice(product?.price))
+    } catch (error) {
+      console.log("Something went wrong while decreasing product quantity" , error)
+    }
+  }
+
+  useEffect(()=>{
+    const fetchProductCount = async ()=>{
+      try {
+        const count = await axios.get(`/api/v1/users/productCount?userId=${cookies.userData._id}&productId=${productId}`)
+        setProductCount(count?.data?.data)
+      } catch (error) {
+        console.log("Something went wrong while fetching product count" , error)
+      }
+    }
+    fetchProductCount()
+  },[productId , handleDecreaseQuantity , handleIncreaseQuantity])
+
   return (
-      <div key={item.id} className="grid grid-cols-[120px_1fr_120px] items-center gap-4">
-        <img
-          src="/placeholder.svg"
-          alt={item.name}
-          width={120}
-          height={120}
-          className="rounded-lg object-cover"
-          style={{ aspectRatio: "120/120", objectFit: "cover" }}
+    <div>
+      <div key={productId} className=" flex items-center gap-4 p-10">
+        <Image
+        src={product?.imageLink}
+        alt="Product Image"
+        width={120}
+        height={120}
+        objectFit="cover"
         />
-        <div className="grid gap-1">
-          <h3 className="font-medium">{item.name}</h3>
-          <p className="text-muted-foreground">${item.price}</p>
+        <div className="grid gap-1 ">
+          <h3 className="font-medium">{product?.name}</h3>
+          <p className="text-muted-foreground">₹{product?.price}</p>
         </div>
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="icon" onClick={() => handleDecrement(item.id)}>
+        <div className="flex items-center gap-5">
+          <Button onClick={handleDecreaseQuantity} >
             <MinusIcon className="h-4 w-4" />
             <span className="sr-only">Decrease quantity</span>
           </Button>
-          <span className="font-medium">{item.quantity}</span>
-          <Button variant="outline" size="icon" onClick={() => handleIncrement(item.id)}>
+          <span className="font-medium">{productCount}</span>
+          <Button onClick={handleIncreaseQuantity} >
             <PlusIcon className="h-4 w-4" />
             <span className="sr-only">Increase quantity</span>
           </Button>
-          <Button variant="destructive" size="icon" onClick={() => handleRemove(item.id)}>
+          <Button onClick={handleDelete} >
             <TrashIcon className="h-4 w-4" />
             <span className="sr-only">Remove from cart</span>
           </Button>
         </div>
       </div>
+    </div>
   )
 }
 

@@ -28,6 +28,8 @@ function AllProducts() {
       })
       console.log("added to cart",add)
       toast.success("Added to cart successfully")
+      const productsData = await axios.get("/api/v1/users/products");
+      setProducts(productsData?.data?.data);
     } catch (error) {
       toast.error("Something went wrong. Try again")
       console.log("Something went wrong while adding product in cart" , error)
@@ -37,7 +39,7 @@ function AllProducts() {
     <div>
       <div className='flex flex-wrap gap-10 justify-center items-center'>
         {products.map((product)=>{
-          return <ProductCard key={product._id} productId={product._id} imageLink={product.imageLink} name={product?.name} price={product?.price} handleAddToCart={()=>handleAddToCart(product._id)}/>
+          return <ProductCard key={product._id}  productId={product._id} imageLink={product.imageLink} name={product?.name} price={product?.price} handleAddToCart={()=>handleAddToCart(product._id)}/>
         })}
       </div>
      <Toaster position='bottom-center'/>
