@@ -19,7 +19,7 @@ function CheckoutForm({address , setAddress}) {
     </div>
     <div className="grid gap-2">
       <h2 htmlFor="address">Address</h2>
-      <Textarea id="address" placeholder="Enter your address" defaultValue={cookies?.[0]?.userData?.address} value={address} onChange={(e)=> setAddress(e.target.value)} />
+      <Textarea id="address" defaultValue={cookies?.[0]?.userData?.address} value={address} onChange={(e)=> setAddress(e.target.value)} />
     </div>
 
   </form>

@@ -11,7 +11,7 @@ export default function Cart() {
   return (
     <div className="w-full h-screen bg-gray-950">
       <div className="cont dark px-4 py-12 text-white  bg-gray-950">
-        <h1 className="text-2xl font-bold mb-8">Your Cart</h1>
+        <h1 className="text-2xl font-bold mb-8 pl-6">Your Cart</h1>
         <div className=" ">
           <div className="m-5">
             <AllCartProducts/>

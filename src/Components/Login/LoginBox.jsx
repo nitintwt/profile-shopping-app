@@ -16,7 +16,7 @@ export default function LoginBox() {
         password:password
       })
       console.log(login)
-      toast.success("User registered successfully")
+      toast.success("Login successfull")
       setTimeout(()=>{
         navigate("/")
       }, 1000)

@@ -3,11 +3,13 @@ import React, { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie';
 import { toast, Toaster } from 'sonner';
 import CartProductCard from './CartProductCard';
+import CartProductSkeleton from './CartProductSkeleton';
 
 
 function AllCartProducts() {
   const [products , setProducts]= useState([])
   const [cookies] = useCookies();
+  const [loading , setLoading]= useState(false)
 
   const handleDeleteFromCart = async (productId)=>{
     try {
@@ -20,10 +22,12 @@ function AllCartProducts() {
   }
 
   useEffect(()=>{
+    setLoading(true)
     const fetchAllCartProducts = async ()=>{
       try {
         const productsData = await axios.get(`/api/v1/users/cartProducts?userId=${cookies?.userData?._id}`)
         setProducts(productsData?.data?.data)
+        setLoading(false)
       } catch (error) {
         console.log("Something went wrong while fetching")
       }
@@ -33,10 +37,18 @@ function AllCartProducts() {
 
   return (
     <div className=''>
-      {products.length >0 ? (
-        products.map((product)=> <CartProductCard key={product} productId={product} handleDelete={()=> handleDeleteFromCart(product)}/>)
+      {loading ? (
+         <CartProductSkeleton/>
       ):(
-        <h1>No products</h1>
+        products.length >0 ? (
+          products.map((product)=> (
+          <CartProductCard 
+          key={product} 
+          productId={product} 
+          handleDelete={()=> handleDeleteFromCart(product)}/>))
+        ):(
+          <h1>No products</h1>
+        )
       )}
       <Toaster position="bottom-center" />
     </div>

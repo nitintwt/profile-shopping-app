@@ -11,6 +11,7 @@ import { deleteAllProductFromCart } from '../Store/productSlice';
 
 export default function Component() {
   const [booked , setBooked]= useState(false)
+  const [booking , setBooking]= useState(false)
   const cookies = useCookies()
   const [address , setAddress]= useState()
   const dispatch = useDispatch()
@@ -19,6 +20,7 @@ export default function Component() {
 
 
   const handleBooking = async ()=>{
+    setBooking(true)
     try {
       const booking = await axios.post("/api/v1/users/purchase", {
         userId:cookies[0]?.userData?._id,
@@ -60,10 +62,16 @@ export default function Component() {
               <h1 className="text-3xl font-bold pl-6">Checkout</h1>
               <CheckoutForm address={address} setAddress={setAddress}/>
               <div className='flex justify-end m-5'>
-              <Button type="submit" className="w-full" color='primary' variant='shadow' onClick={handleBooking}>
-              Place Order
-              </Button>
-            </div>
+                {booking ? (
+                  <Button type="submit" className="w-full" color='primary' variant='shadow' isLoading>
+                   Ordering...
+                  </Button>
+                ) : (
+                <Button type="submit" className="w-full" color='primary' variant='shadow' onClick={handleBooking}>
+                  Place Order
+                 </Button>
+                )}
+              </div>
             </div>
           </div>
         </main>

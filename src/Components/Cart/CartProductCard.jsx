@@ -3,6 +3,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Image } from "@nextui-org/react";
 import { useCookies } from "react-cookie";
+import {Card, CardHeader, CardBody, CardFooter} from "@nextui-org/card";
+import { FaPlus } from "react-icons/fa6";
 
 function CartProductCard({ productId , handleDelete }) {
   const [product , setProduct]= useState()
@@ -56,36 +58,36 @@ function CartProductCard({ productId , handleDelete }) {
   },[productId])
 
   return (
-    <div>
-      <div key={productId} className=" flex items-center gap-4 p-10">
-        <Image
+    <Card className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6 p-4 sm:p-6 bg-card text-card-foreground">
+      <Image
         src={product?.imageLink}
         alt="Product Image"
         width={120}
         height={120}
-        objectFit="cover"
-        />
-        <div className="grid gap-1 ">
-          <h3 className="font-medium">{product?.name}</h3>
-          <p className="text-muted-foreground">₹{product?.price}</p>
+        className="rounded-md object-cover"
+        style={{ aspectRatio: "120/120", objectFit: "cover" }}
+      />
+      <div className="flex-1 grid gap-2">
+        <div className="flex items-start justify-between">
+          <h3 className="font-semibold text-lg">{product?.name}</h3>
+          <div className="text-lg font-semibold">₹{product?.price}</div>
         </div>
-        <div className="flex items-center gap-5">
-          <Button onClick={ handleDecreaseQuantity} >
-            <MinusIcon className="h-4 w-4" />
-            <span className="sr-only">Decrease quantity</span>
-          </Button>
-          <span className="font-medium">{productCount}</span>
-          <Button onClick={handleIncreaseQuantity} >
-            <PlusIcon className="h-4 w-4" />
-            <span className="sr-only">Increase quantity</span>
-          </Button>
-          <Button onClick={handleDelete} >
-            <TrashIcon className="h-4 w-4" />
-            <span className="sr-only">Remove from cart</span>
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <Button color="primary" variant="light" onClick={handleDecreaseQuantity} className="w-8 h-8 hover:bg-muted">
+              <MinusIcon className="w-5 h-5" />
+            </Button>
+            <div className="text-lg font-semibold">{productCount}</div>
+            <Button color="primary" variant="light" onClick={handleIncreaseQuantity} className="w-8 h-8 hover:bg-muted">
+            <FaPlus />
+            </Button>
+          </div>
+          <Button color="danger" variant="light" onClick={handleDelete} className="ml-auto w-8 h-8 hover:bg-muted">
+            <TrashIcon className="w-5 h-5" />
           </Button>
         </div>
       </div>
-    </div>
+    </Card>
   )
 }
 
