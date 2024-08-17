@@ -40,8 +40,8 @@ function AllCartProducts() {
       {loading ? (
          <CartProductSkeleton/>
       ):(
-        products.length >0 ? (
-          products.map((product)=> (
+        products?.length >0 ? (
+          products?.map((product)=> (
           <CartProductCard 
           key={product} 
           productId={product} 

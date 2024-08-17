@@ -46,8 +46,8 @@ function AllProducts() {
             <ProductCardSkeleton key={index} />
           ))
         ) : (
-          products.length > 0 ? (
-            products.map((product) => (
+          products?.length > 0 ? (
+            products?.map((product) => (
               <ProductCard
                 key={product._id}
                 productId={product._id}
