@@ -6,6 +6,8 @@ import AllCartProducts from "../Components/Cart/AllCartProducts";
 import { useDispatch , useSelector} from 'react-redux';
 
 export default function Cart() {
+  const totalPrice = useSelector((state)=> state.product.totalPriceOfCartItem)
+  console.log("redux" , totalPrice)
 
 
   return (
@@ -24,7 +26,7 @@ export default function Cart() {
             <hr/>
             <div className="flex items-center justify-between">
               <h3 className="font-medium">Total</h3>
-              <span className="text-2xl font-bold"></span>
+              <span className="text-2xl font-bold">{totalPrice}</span>
             </div>
             <div className="flex justify-end">
               <Button color="primary" variant='shadow' >

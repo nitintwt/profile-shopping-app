@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  cartProducts:[],
   totalPriceOfCartItem: 0,
   totalProducts:[]
 };
@@ -20,9 +21,10 @@ const productSlice = createSlice({
     },
     deleteAllProductFromCart:(state , action)=>{
       state.totalProducts=[]
-    }
+    },
+    
   }
-});
+})
 
 export const { addPrice, removePrice , addProduct , deleteAllProductFromCart } = productSlice.actions;
 

@@ -9,6 +9,7 @@ function OrderSummary() {
   const [products , setProducts]= useState([])
   const [cookies] = useCookies();
   const dispatch = useDispatch()
+  const totalPrice = useSelector((state)=> state.product.totalPriceOfCartItem)
 
   useEffect(()=>{
     const fetchAllCartProducts = async ()=>{
@@ -31,7 +32,7 @@ function OrderSummary() {
       <hr className="my-6" />
       <div className="grid grid-cols-2 gap-2">
         <p className="text-muted-foreground dark:text-muted-foreground font-medium">Total:</p>
-        <p className="text-right font-medium">$91.38</p>
+        <p className="text-right font-medium">₹{totalPrice}</p>
       </div>
     </Fragment>
   )

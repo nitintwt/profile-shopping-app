@@ -5,17 +5,23 @@ import { Image } from "@nextui-org/react";
 import { useCookies } from "react-cookie";
 import {Card, CardHeader, CardBody, CardFooter} from "@nextui-org/card";
 import { FaPlus } from "react-icons/fa6";
+import { useDispatch } from "react-redux";
+import { addPrice, removePrice } from "../../Store/productSlice";
 
 function CartProductCard({ productId , handleDelete }) {
   const [product , setProduct]= useState()
   const [cookies] = useCookies();
   const [productCount , setProductCount]= useState()
+  const dispatch = useDispatch()
 
   useEffect(()=>{
     const fetchProductData = async ()=>{
       try {
         const productData = await axios.get(`/api/v1/users/productData?productId=${productId}`)
         setProduct(productData?.data?.data)
+        const price = parseInt(productData?.data?.data?.price)
+        dispatch(addPrice(price))
+        dispatch
       } catch (error) {
         console.log("Something went wrong while fetching product data" , error)
       }
@@ -31,6 +37,8 @@ function CartProductCard({ productId , handleDelete }) {
         userId:cookies.userData._id
       })
       setProductCount(prevCount => prevCount + 1);
+      const price = parseInt(product?.price)
+      dispatch(addPrice(price))
     } catch (error) {
       console.log("Something went wrong while adding product in cart" , error)
     }
@@ -40,6 +48,8 @@ function CartProductCard({ productId , handleDelete }) {
     try {
       const decrease = await axios.delete(`api/v1/users/decreaseProductQuantity?userId=${cookies?.userData._id}&productId=${productId}`)
       setProductCount(prevCount => Math.max(prevCount - 1, 1));
+      const price = parseInt(product?.price)
+      dispatch(removePrice(price))
     } catch (error) {
       console.log("Something went wrong while decreasing product quantity" , error)
     }
