@@ -26,7 +26,6 @@ function AllProducts() {
         productId:productId,
         userId:cookies.userData._id
       })
-      console.log("added to cart",add)
       toast.success("Added to cart successfully")
       const productsData = await axios.get("/api/v1/users/products");
       setProducts(productsData?.data?.data);

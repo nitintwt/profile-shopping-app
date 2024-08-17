@@ -3,30 +3,23 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Image } from "@nextui-org/react";
 import { useCookies } from "react-cookie";
-import { useDispatch , useSelector} from 'react-redux';
-import { addPrice } from "../../Store/productSlice";
 
 function CartProductCard({ productId , handleDelete }) {
   const [product , setProduct]= useState()
   const [cookies] = useCookies();
   const [productCount , setProductCount]= useState()
-  const dispatch = useDispatch()
 
   useEffect(()=>{
     const fetchProductData = async ()=>{
       try {
         const productData = await axios.get(`/api/v1/users/productData?productId=${productId}`)
         setProduct(productData?.data?.data)
-
-
       } catch (error) {
         console.log("Something went wrong while fetching product data" , error)
       }
     }
     fetchProductData()
-    
   },[productId])
-
 
 
   const handleIncreaseQuantity = async ()=>{
@@ -44,8 +37,7 @@ function CartProductCard({ productId , handleDelete }) {
   const handleDecreaseQuantity  = async ()=>{
     try {
       const decrease = await axios.delete(`api/v1/users/decreaseProductQuantity?userId=${cookies?.userData._id}&productId=${productId}`)
-      setProductCount(prevCount => Math.max(prevCount - 1, 0));
-      dispatch(removePrice(product?.price))
+      setProductCount(prevCount => Math.max(prevCount - 1, 1));
     } catch (error) {
       console.log("Something went wrong while decreasing product quantity" , error)
     }
@@ -61,7 +53,7 @@ function CartProductCard({ productId , handleDelete }) {
       }
     }
     fetchProductCount()
-  },[productId , handleDecreaseQuantity , handleIncreaseQuantity])
+  },[productId])
 
   return (
     <div>
@@ -78,7 +70,7 @@ function CartProductCard({ productId , handleDelete }) {
           <p className="text-muted-foreground">₹{product?.price}</p>
         </div>
         <div className="flex items-center gap-5">
-          <Button onClick={handleDecreaseQuantity} >
+          <Button onClick={ handleDecreaseQuantity} >
             <MinusIcon className="h-4 w-4" />
             <span className="sr-only">Decrease quantity</span>
           </Button>

@@ -3,12 +3,11 @@ import React, { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie';
 import { toast, Toaster } from 'sonner';
 import CartProductCard from './CartProductCard';
-import { RiH1 } from 'react-icons/ri';
+
 
 function AllCartProducts() {
   const [products , setProducts]= useState([])
   const [cookies] = useCookies();
-
 
   const handleDeleteFromCart = async (productId)=>{
     try {
@@ -24,7 +23,6 @@ function AllCartProducts() {
     const fetchAllCartProducts = async ()=>{
       try {
         const productsData = await axios.get(`/api/v1/users/cartProducts?userId=${cookies?.userData?._id}`)
-        console.log(productsData)
         setProducts(productsData?.data?.data)
       } catch (error) {
         console.log("Something went wrong while fetching")
@@ -33,7 +31,6 @@ function AllCartProducts() {
     fetchAllCartProducts()
   },[])
 
-
   return (
     <div className=''>
       {products.length >0 ? (
@@ -41,6 +38,7 @@ function AllCartProducts() {
       ):(
         <h1>No products</h1>
       )}
+      <Toaster position="bottom-center" />
     </div>
   )
 }
