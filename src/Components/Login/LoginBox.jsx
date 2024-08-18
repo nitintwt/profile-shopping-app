@@ -19,7 +19,7 @@ export default function LoginBox() {
         password:password
       })
       console.log(login)
-      setCookies("userData",{_id:login?.data?.data?._id , email:login?.data?.data?.email})
+      setCookies("userData",{_id:login?.data?.data?._id , email:login?.data?.data?.email , name:login?.data?.data?.name})
       toast.success("Login successfull")
       setTimeout(()=>{
         navigate("/")
