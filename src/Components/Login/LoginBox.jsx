@@ -3,11 +3,13 @@ import { Toaster, toast } from 'sonner';
 import { Button, ButtonGroup } from '@nextui-org/button';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 export default function LoginBox() {
   const [email, setEmail] = useState(''); 
   const [password, setPassword] = useState('');
   const navigate = useNavigate()
+  const [cookies , setCookies]= useCookies()
   
 
   const handleSubmit = async ()=>{
@@ -17,6 +19,7 @@ export default function LoginBox() {
         password:password
       })
       console.log(login)
+      setCookies("userData",_id)
       toast.success("Login successfull")
       setTimeout(()=>{
         navigate("/")
