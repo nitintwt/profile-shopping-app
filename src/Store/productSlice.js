@@ -22,10 +22,13 @@ const productSlice = createSlice({
     deleteAllProductFromCart:(state , action)=>{
       state.totalProducts=[]
     },
+    totalPriceZero:(state, action)=>{
+      state.totalPriceOfCartItem=0
+    }
     
   }
 })
 
-export const { addPrice, removePrice , addProduct , deleteAllProductFromCart } = productSlice.actions;
+export const { addPrice, removePrice , addProduct , deleteAllProductFromCart , totalPriceZero } = productSlice.actions;
 
 export default productSlice.reducer;

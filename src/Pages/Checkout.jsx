@@ -7,7 +7,7 @@ import axios from 'axios';
 import { Cookies , useCookies } from 'react-cookie';
 import { useDispatch, useSelector } from 'react-redux';
 import {Button, ButtonGroup} from "@nextui-org/button";
-import { deleteAllProductFromCart } from '../Store/productSlice';
+import { deleteAllProductFromCart, totalPriceZero } from '../Store/productSlice';
 
 export default function Component() {
   const [booked , setBooked]= useState(false)
@@ -29,6 +29,7 @@ export default function Component() {
       })
       setBooked(true)
       dispatch(deleteAllProductFromCart())
+      dispatch(totalPriceZero())
       console.log("booking" , booking)
     } catch (error) {
       setBooking(false)

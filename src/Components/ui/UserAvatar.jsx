@@ -23,7 +23,7 @@ export default function UserAvatar() {
     try {
       const logout = await axios.post(`${import.meta.env.VITE_AWS_API}/api/v1/users/logout`, {userDbId:cookies?.userData?._id})
       removeCookie("userData")
-      navigate("/")
+      navigate("/login")
     } catch (error) {
       console.log("Something went wrong while logging out" , error)
     }
