@@ -32,7 +32,7 @@ function CartProductCard({ productId , handleDelete }) {
 
   const handleIncreaseQuantity = async ()=>{
     try {
-      const add = await axios.post(`${import.meta.env.VITE_AWS_API}}/api/v1/users/addToCart`, {
+      const add = await axios.post(`${import.meta.env.VITE_AWS_API}/api/v1/users/addToCart`, {
         productId:productId,
         userId:cookies.userData._id
       }, {withCredentials: true,})
@@ -46,7 +46,7 @@ function CartProductCard({ productId , handleDelete }) {
 
   const handleDecreaseQuantity  = async ()=>{
     try {
-      const decrease = await axios.delete(`${import.meta.env.VITE_AWS_API}api/v1/users/decreaseProductQuantity?userId=${cookies?.userData._id}&productId=${productId}`, {withCredentials: true,})
+      const decrease = await axios.delete(`${import.meta.env.VITE_AWS_API}/api/v1/users/decreaseProductQuantity?userId=${cookies?.userData._id}&productId=${productId}`, {withCredentials: true,})
       setProductCount(prevCount => Math.max(prevCount - 1, 1));
       const price = parseInt(product?.price)
       dispatch(removePrice(price))
