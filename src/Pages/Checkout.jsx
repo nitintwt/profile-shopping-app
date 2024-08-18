@@ -26,11 +26,12 @@ export default function Component() {
         userId:cookies[0]?.userData?._id,
         productsId:productsId,
         address:address
-      }, {withCredentials: true,})
+      })
       setBooked(true)
       dispatch(deleteAllProductFromCart())
       console.log("booking" , booking)
     } catch (error) {
+      setBooking(false)
       toast.error("Something went wrong. Try again")
       console.log("Something went wrong while booking your order" , error)
     }
