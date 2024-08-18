@@ -12,7 +12,7 @@ export default function ProductCard({productId , imageLink , name , price , hand
   useEffect(()=>{
     const checkProductInCart = async ()=>{
       try {
-        const check = await axios.get(`/api/v1/users/checkProductInCart?userId=${cookies?.userData?._id}&productId=${productId}`)
+        const check = await axios.get(`${process.env.AWS_API}/api/v1/users/checkProductInCart?userId=${cookies?.userData?._id}&productId=${productId}`)
         setIsAdded(check?.data?.data)
       } catch (error) {
         console.log("Something went wrong while checking cart data" , error)

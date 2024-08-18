@@ -13,7 +13,7 @@ function CheckoutProductCard({productId}) {
   useEffect(()=>{
     const fetchProductData = async ()=>{
       try {
-        const productData = await axios.get(`/api/v1/users/productData?productId=${productId}`)
+        const productData = await axios.get(`${process.env.AWS_API}/api/v1/users/productData?productId=${productId}`)
         setProduct(productData?.data?.data)
       } catch (error) {
         console.log("Something went wrong while fetching product data" , error)
@@ -26,7 +26,7 @@ function CheckoutProductCard({productId}) {
   useEffect(()=>{
     const fetchProductCount = async ()=>{
       try {
-        const count = await axios.get(`/api/v1/users/productCount?userId=${cookies.userData._id}&productId=${productId}`)
+        const count = await axios.get(`${process.env.AWS_API}/api/v1/users/productCount?userId=${cookies.userData._id}&productId=${productId}`)
         setProductCount(count?.data?.data)
       } catch (error) {
         console.log("Something went wrong while fetching product count" , error)

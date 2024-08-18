@@ -22,7 +22,7 @@ export default function Component() {
   const handleBooking = async ()=>{
     setBooking(true)
     try {
-      const booking = await axios.post("/api/v1/users/purchase", {
+      const booking = await axios.post(`${process.env.AWS_API}/api/v1/users/purchase`, {
         userId:cookies[0]?.userData?._id,
         productsId:productsId,
         address:address

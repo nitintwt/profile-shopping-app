@@ -21,7 +21,7 @@ export default function UserAvatar() {
 
   const handleLogOut = async ()=>{
     try {
-      const logout = await axios.post("/api/v1/users/logout", {userDbId:cookies?.userData?._id})
+      const logout = await axios.post(`${process.env.AWS_API}/api/v1/users/logout`, {userDbId:cookies?.userData?._id})
       navigate("/")
     } catch (error) {
       console.log("Something went wrong while logging out" , error)

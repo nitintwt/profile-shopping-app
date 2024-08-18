@@ -13,7 +13,7 @@ function AllCartProducts() {
 
   const handleDeleteFromCart = async (productId)=>{
     try {
-     const deleteProduct = await axios.delete(`/api/v1/users/deleteProductFromCart?productId=${productId}&userId=${cookies?.userData?._id}`)
+     const deleteProduct = await axios.delete(`${process.env.AWS_API}/api/v1/users/deleteProductFromCart?productId=${productId}&userId=${cookies?.userData?._id}`)
      toast.success("Product deleted from cart") 
     } catch (error) {
       console.log("Something went wrong while deleting product from cart", error)
@@ -25,7 +25,7 @@ function AllCartProducts() {
     setLoading(true)
     const fetchAllCartProducts = async ()=>{
       try {
-        const productsData = await axios.get(`/api/v1/users/cartProducts?userId=${cookies?.userData?._id}`)
+        const productsData = await axios.get(`${process.env.AWS_API}/api/v1/users/cartProducts?userId=${cookies?.userData?._id}`)
         setProducts(productsData?.data?.data)
         setLoading(false)
       } catch (error) {

@@ -17,7 +17,7 @@ function CartProductCard({ productId , handleDelete }) {
   useEffect(()=>{
     const fetchProductData = async ()=>{
       try {
-        const productData = await axios.get(`/api/v1/users/productData?productId=${productId}`)
+        const productData = await axios.get(`${process.env.AWS_API}/api/v1/users/productData?productId=${productId}`)
         setProduct(productData?.data?.data)
         const price = parseInt(productData?.data?.data?.price)
         dispatch(addPrice(price))
@@ -32,7 +32,7 @@ function CartProductCard({ productId , handleDelete }) {
 
   const handleIncreaseQuantity = async ()=>{
     try {
-      const add = await axios.post("/api/v1/users/addToCart", {
+      const add = await axios.post(`${process.env.AWS_API}/api/v1/users/addToCart`, {
         productId:productId,
         userId:cookies.userData._id
       })
@@ -46,7 +46,7 @@ function CartProductCard({ productId , handleDelete }) {
 
   const handleDecreaseQuantity  = async ()=>{
     try {
-      const decrease = await axios.delete(`api/v1/users/decreaseProductQuantity?userId=${cookies?.userData._id}&productId=${productId}`)
+      const decrease = await axios.delete(`${process.env.AWS_API}api/v1/users/decreaseProductQuantity?userId=${cookies?.userData._id}&productId=${productId}`)
       setProductCount(prevCount => Math.max(prevCount - 1, 1));
       const price = parseInt(product?.price)
       dispatch(removePrice(price))
@@ -58,7 +58,7 @@ function CartProductCard({ productId , handleDelete }) {
   useEffect(()=>{
     const fetchProductCount = async ()=>{
       try {
-        const count = await axios.get(`/api/v1/users/productCount?userId=${cookies.userData._id}&productId=${productId}`)
+        const count = await axios.get(`${process.env.AWS_API}/api/v1/users/productCount?userId=${cookies.userData._id}&productId=${productId}`)
         setProductCount(count?.data?.data)
       } catch (error) {
         console.log("Something went wrong while fetching product count" , error)

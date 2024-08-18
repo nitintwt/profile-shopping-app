@@ -12,7 +12,7 @@ export default function SignupBox() {
 
   const handleSubmit = async ()=>{
     try {
-      const register = await axios.post("/api/v1/users/register" , {
+      const register = await axios.post(`${process.env.AWS_API}/api/v1/users/register` , {
         name:name,
         email:email,
         password:password
