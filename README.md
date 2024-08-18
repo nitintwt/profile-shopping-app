@@ -1,12 +1,12 @@
 # Shipper 
 Backend code : https://github.com/nitintwt/profile-shopping-app-backend
 
-Frontend: React, Tailwind CSS, Redux
-Backend: Node.js, Express.js, MongoDB
-Task Queue: BullMQ for managing email sending tasks
-Email Service: Nodemailer for sending email confirmations
-Containerization: Docker for consistent deployment across environments
-Deployment: AWS ECS for scalable and reliable hosting
+1. Frontend: React, Tailwind CSS, Redux
+2. Backend: Node.js, Express.js, MongoDB
+3. BullMQ for managing email sending tasks
+4. Email Service: Nodemailer for sending email confirmations
+5. Docker for consistent deployment across environments
+6. Deployment: AWS ECS for scalable and reliable hosting
 
 # Features 
 1. Add to Cart: Easily add products to your shopping cart.
