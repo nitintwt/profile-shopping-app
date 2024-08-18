@@ -1,8 +1,16 @@
-# React + Vite
+# Shipper 
+Backend code : https://github.com/nitintwt/profile-shopping-app-backend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend: React, Tailwind CSS, Redux
+Backend: Node.js, Express.js, MongoDB
+Task Queue: BullMQ for managing email sending tasks
+Email Service: Nodemailer for sending email confirmations
+Containerization: Docker for consistent deployment across environments
+Deployment: AWS ECS for scalable and reliable hosting
 
-Currently, two official plugins are available:
+# Features 
+1. Add to Cart: Easily add products to your shopping cart.
+2. Increase or decrease the quantity of items in your cart.
+3. Seamlessly complete your purchase with a checkout page.
+4. Receive an email confirmation after successfully completing a purchase.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
