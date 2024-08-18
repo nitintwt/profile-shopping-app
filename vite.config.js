@@ -7,10 +7,6 @@ dotenv.config({path:'./.env'})
 // https://vitejs.dev/config/
 export default defineConfig({
   server:{
-    proxy:{
-      '/api':process.env.AWS_API
-    }
-
   },
   plugins: [react()],
 })
