@@ -26,7 +26,7 @@ function CheckoutProductCard({productId}) {
   useEffect(()=>{
     const fetchProductCount = async ()=>{
       try {
-        const count = await axios.get(`${import.meta.env.VITE_AWS_API}/api/v1/users/productCount?userId=${cookies.userData._id}&productId=${productId}`, {withCredentials: true,})
+        const count = await axios.get(`${import.meta.env.VITE_AWS_API}/api/v1/users/productCount?userId=${cookies.userData._id}&productId=${productId}`)
         setProductCount(count?.data?.data)
       } catch (error) {
         console.log("Something went wrong while fetching product count" , error)
