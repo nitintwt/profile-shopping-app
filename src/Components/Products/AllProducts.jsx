@@ -34,7 +34,7 @@ function AllProducts() {
       const productsData = await axios.get(`${import.meta.env.VITE_AWS_API}/api/v1/users/products`);
       setProducts(productsData?.data?.data);
     } catch (error) {
-      toast.warning("Something went wrong. Try again")
+      toast.warning("Login first")
       console.log("Something went wrong while adding product in cart" , error)
     }
   }
