@@ -35,7 +35,7 @@ function CartProductCard({ productId , handleDelete }) {
       const add = await axios.post(`${import.meta.env.VITE_AWS_API}}/api/v1/users/addToCart`, {
         productId:productId,
         userId:cookies.userData._id
-      })
+      }, {withCredentials: true,})
       setProductCount(prevCount => prevCount + 1);
       const price = parseInt(product?.price)
       dispatch(addPrice(price))
@@ -46,7 +46,7 @@ function CartProductCard({ productId , handleDelete }) {
 
   const handleDecreaseQuantity  = async ()=>{
     try {
-      const decrease = await axios.delete(`${import.meta.env.VITE_AWS_API}api/v1/users/decreaseProductQuantity?userId=${cookies?.userData._id}&productId=${productId}`)
+      const decrease = await axios.delete(`${import.meta.env.VITE_AWS_API}api/v1/users/decreaseProductQuantity?userId=${cookies?.userData._id}&productId=${productId}`, {withCredentials: true,})
       setProductCount(prevCount => Math.max(prevCount - 1, 1));
       const price = parseInt(product?.price)
       dispatch(removePrice(price))
@@ -58,7 +58,7 @@ function CartProductCard({ productId , handleDelete }) {
   useEffect(()=>{
     const fetchProductCount = async ()=>{
       try {
-        const count = await axios.get(`${import.meta.env.VITE_AWS_API}/api/v1/users/productCount?userId=${cookies.userData._id}&productId=${productId}`)
+        const count = await axios.get(`${import.meta.env.VITE_AWS_API}/api/v1/users/productCount?userId=${cookies.userData._id}&productId=${productId}`, {withCredentials: true,})
         setProductCount(count?.data?.data)
       } catch (error) {
         console.log("Something went wrong while fetching product count" , error)

@@ -26,7 +26,7 @@ export default function Component() {
         userId:cookies[0]?.userData?._id,
         productsId:productsId,
         address:address
-      })
+      }, {withCredentials: true,})
       setBooked(true)
       dispatch(deleteAllProductFromCart())
       console.log("booking" , booking)

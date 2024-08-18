@@ -8,6 +8,7 @@ import UserAvatar from './UserAvatar';
 function Navbar() {
   const [cookies]= useCookies()
   const [isAuth , setIsAuth]= useState(false)
+  console.log("cookies" , cookies)
 
   useEffect(()=>{
     if (cookies.userData){
