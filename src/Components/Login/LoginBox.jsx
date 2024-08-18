@@ -8,10 +8,11 @@ export default function LoginBox() {
   const [email, setEmail] = useState(''); 
   const [password, setPassword] = useState('');
   const navigate = useNavigate()
+  
 
   const handleSubmit = async ()=>{
     try {
-      const login = await axios.post(`${process.env.AWS_API}/api/v1/users/login` , {
+      const login = await axios.post(`${import.meta.env.VITE_AWS_API}/api/v1/users/login` , {
         email:email,
         password:password
       })

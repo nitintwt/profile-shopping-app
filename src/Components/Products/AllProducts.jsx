@@ -14,7 +14,7 @@ function AllProducts() {
     setLoading(true)
     const fetchAllProducts = async ()=>{
       try {
-        const productsData = await axios.get(`${process.env.AWS_API}/api/v1/users/products`)
+        const productsData = await axios.get(`${import.meta.env.VITE_AWS_API}/api/v1/users/products`)
         setProducts(productsData?.data?.data)
         setLoading(false)
       } catch (error) {
@@ -26,12 +26,12 @@ function AllProducts() {
 
   const handleAddToCart = async (productId)=>{
     try {
-      const add = await axios.post(`${process.env.AWS_API}/api/v1/users/addToCart`, {
+      const add = await axios.post(`${import.meta.env.VITE_AWS_API}/api/v1/users/addToCart`, {
         productId:productId,
         userId:cookies.userData._id
       })
       toast.success("Added to cart successfully")
-      const productsData = await axios.get(`${process.env.AWS_API}/api/v1/users/products`);
+      const productsData = await axios.get(`${import.meta.env.VITE_AWS_API}/api/v1/users/products`);
       setProducts(productsData?.data?.data);
     } catch (error) {
       toast.warning("Something went wrong. Try again")

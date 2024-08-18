@@ -14,7 +14,7 @@ function OrderSummary() {
   useEffect(()=>{
     const fetchAllCartProducts = async ()=>{
       try {
-        const productsData = await axios.get(`${process.env.AWS_API}/api/v1/users/cartProducts?userId=${cookies?.userData?._id}`)
+        const productsData = await axios.get(`${import.meta.env.VITE_AWS_API}/api/v1/users/cartProducts?userId=${cookies?.userData?._id}`)
         setProducts(productsData?.data?.data)
         dispatch(addProduct(productsData?.data?.data));
       } catch (error) {
