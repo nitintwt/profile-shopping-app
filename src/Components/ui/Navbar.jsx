@@ -11,10 +11,10 @@ function Navbar() {
   console.log("cookies" , cookies)
 
   useEffect(()=>{
-    if (cookies?.userData!=='undefined'){
+    if (cookies?.userData !=='undefined'){
       setIsAuth(true)
     }
-  },[cookies?.userData , isAuth])
+  },[cookies])
 
   return (
   <header className="flex items-center justify-between h-16 px-4 md:px-6  bg-gray-950 dark:bg-gray-950 shadow font-roboto">

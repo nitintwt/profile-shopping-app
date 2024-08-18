@@ -16,13 +16,13 @@ import { Link, useNavigate } from 'react-router-dom';
 
 
 export default function UserAvatar() {
-  const [cookies , removeCookie] = useCookies();
+  const [cookies ,setCookies, removeCookie] = useCookies();
   const navigate = useNavigate()
 
   const handleLogOut = async ()=>{
     try {
       const logout = await axios.post(`${import.meta.env.VITE_AWS_API}/api/v1/users/logout`, {userDbId:cookies?.userData?._id})
-      removeCookie()
+      removeCookie("userData")
       navigate("/")
     } catch (error) {
       console.log("Something went wrong while logging out" , error)
