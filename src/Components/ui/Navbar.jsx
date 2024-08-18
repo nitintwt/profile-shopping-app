@@ -11,7 +11,7 @@ function Navbar() {
   console.log("cookies" , cookies)
 
   useEffect(()=>{
-    if (cookies.userData){
+    if (cookies?.userData!==undefined){
       setIsAuth(true)
     }
   },[cookies?.userData , isAuth])
